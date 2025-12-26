@@ -9,7 +9,7 @@ package view;
  * @author Dell
  */
 public class DashboardFrame extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardFrame.class.getName());
 
     /**
@@ -17,6 +17,30 @@ public class DashboardFrame extends javax.swing.JFrame {
      */
     public DashboardFrame() {
         initComponents();
+        loadTableData();
+    }
+    controller.CarController controller = new controller.CarController();
+
+    public void loadTableData() {
+        controller.CarController controller = new controller.CarController();
+
+        // CHANGED: LinkedList -> ArrayList
+        java.util.ArrayList<model.Car> cars = controller.getAllCars();
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) readTable.getModel();
+        model.setRowCount(0); // Clear table
+
+        for (model.Car car : cars) {
+            Object[] row = {
+                car.getCarId(),
+                car.getBrand(),
+                car.getModel(),
+                car.getYear(),
+                car.getPrice(),
+                car.getStockQuantity()
+            };
+            model.addRow(row);
+        }
     }
 
     /**
@@ -28,21 +52,655 @@ public class DashboardFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        readTable = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtModel = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtPrice = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtBrand = new javax.swing.JTextField();
+        txtYear = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtQuantity = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtId1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtModel1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtPrice1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtQuantity1 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtDeleteId = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+
+        jLabel2.setText("jLabel2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setLayout(null);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel1.setText("BMW - SHOWROOM MANAGEMENT SYSTEM");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(30, 10, 840, 100);
+
+        jTabbedPane1.setToolTipText("");
+
+        jPanel3.setLayout(null);
+
+        readTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "CarID", "Brand", "Model", "Year", "Price", "Stock Qty"
+            }
+        ));
+        jScrollPane1.setViewportView(readTable);
+
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 56, 800, 290);
+        jPanel3.add(jTextField1);
+        jTextField1.setBounds(530, 10, 220, 22);
+
+        jButton3.setText("Search");
+        jPanel3.add(jButton3);
+        jButton3.setBounds(760, 10, 72, 23);
+
+        jTabbedPane1.addTab("Main Dashboard", jPanel3);
+
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel7.setLayout(null);
+
+        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102), 5));
+        jPanel8.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel3.setText("ADD DETAILS");
+        jPanel8.add(jLabel3);
+        jLabel3.setBounds(310, 10, 150, 32);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel5.setText("ID :");
+        jPanel8.add(jLabel5);
+        jLabel5.setBounds(40, 80, 120, 20);
+
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtId);
+        txtId.setBounds(160, 80, 200, 22);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel6.setText("Model :");
+        jPanel8.add(jLabel6);
+        jLabel6.setBounds(40, 120, 120, 20);
+
+        txtModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtModelActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtModel);
+        txtModel.setBounds(160, 120, 200, 22);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel7.setText("Price :");
+        jPanel8.add(jLabel7);
+        jLabel7.setBounds(40, 160, 120, 20);
+
+        txtPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPriceActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtPrice);
+        txtPrice.setBounds(160, 160, 200, 22);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel8.setText("Quantity :");
+        jPanel8.add(jLabel8);
+        jLabel8.setBounds(390, 160, 120, 20);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel9.setText("Brand :");
+        jPanel8.add(jLabel9);
+        jLabel9.setBounds(390, 80, 120, 20);
+
+        txtBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBrandActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtBrand);
+        txtBrand.setBounds(510, 80, 200, 22);
+
+        txtYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtYearActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtYear);
+        txtYear.setBounds(510, 120, 200, 22);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel10.setText("Year :");
+        jPanel8.add(jLabel10);
+        jLabel10.setBounds(390, 120, 120, 20);
+
+        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantityActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtQuantity);
+        txtQuantity.setBounds(510, 160, 200, 22);
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("START ENGINE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton1);
+        jButton1.setBounds(230, 310, 140, 40);
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 102));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Add Model");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton2);
+        jButton2.setBounds(300, 210, 150, 50);
+
+        jPanel7.add(jPanel8);
+        jPanel8.setBounds(40, 40, 760, 280);
+
+        jPanel4.add(jPanel7);
+
+        jTabbedPane1.addTab("Create Model", jPanel4);
+
+        jPanel5.setLayout(null);
+
+        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102), 5));
+        jPanel9.setLayout(null);
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel4.setText("UPDATE ");
+        jPanel9.add(jLabel4);
+        jLabel4.setBounds(340, 10, 100, 32);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel11.setText("ID :");
+        jPanel9.add(jLabel11);
+        jLabel11.setBounds(40, 80, 120, 20);
+
+        txtId1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtId1ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(txtId1);
+        txtId1.setBounds(160, 80, 200, 22);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel12.setText("Model :");
+        jPanel9.add(jLabel12);
+        jLabel12.setBounds(40, 130, 120, 20);
+
+        txtModel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtModel1ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(txtModel1);
+        txtModel1.setBounds(160, 130, 200, 22);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel13.setText("Price :");
+        jPanel9.add(jLabel13);
+        jLabel13.setBounds(390, 80, 120, 20);
+
+        txtPrice1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrice1ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(txtPrice1);
+        txtPrice1.setBounds(510, 80, 200, 22);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel14.setText("Quantity :");
+        jPanel9.add(jLabel14);
+        jLabel14.setBounds(390, 130, 120, 20);
+
+        txtQuantity1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantity1ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(txtQuantity1);
+        txtQuantity1.setBounds(510, 130, 200, 22);
+
+        jButton4.setBackground(new java.awt.Color(0, 0, 102));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("START ENGINE");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton4);
+        jButton4.setBounds(230, 310, 140, 40);
+
+        jButton5.setBackground(new java.awt.Color(0, 0, 102));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Update Model");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton5);
+        jButton5.setBounds(300, 190, 150, 50);
+
+        jPanel5.add(jPanel9);
+        jPanel9.setBounds(40, 40, 760, 280);
+
+        jTabbedPane1.addTab("Update Model", jPanel5);
+
+        jPanel10.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102), 5));
+        jPanel10.setLayout(null);
+
+        jLabel15.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel15.setText("DELETE ");
+        jPanel10.add(jLabel15);
+        jLabel15.setBounds(340, 10, 100, 32);
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        jLabel16.setText("ID :");
+        jPanel10.add(jLabel16);
+        jLabel16.setBounds(220, 80, 120, 50);
+
+        txtDeleteId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDeleteIdActionPerformed(evt);
+            }
+        });
+        jPanel10.add(txtDeleteId);
+        txtDeleteId.setBounds(300, 80, 270, 60);
+
+        jButton6.setBackground(new java.awt.Color(0, 0, 102));
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("START ENGINE");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton6);
+        jButton6.setBounds(230, 310, 140, 40);
+
+        jButton7.setBackground(new java.awt.Color(0, 0, 102));
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("DELETE");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton7);
+        jButton7.setBounds(300, 180, 150, 50);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("Delete Model", jPanel6);
+
+        jPanel1.add(jTabbedPane1);
+        jTabbedPane1.setBounds(30, 130, 840, 400);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
+    private void txtModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtModelActionPerformed
+
+    private void txtPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPriceActionPerformed
+
+    private void txtBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBrandActionPerformed
+
+    private void txtYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtYearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtYearActionPerformed
+
+    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantityActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        // 1. Validate: Check for empty fields
+        if (txtId.getText().trim().isEmpty() || txtBrand.getText().trim().isEmpty()
+                || txtModel.getText().trim().isEmpty() || txtYear.getText().trim().isEmpty()
+                || txtPrice.getText().trim().isEmpty() || txtQuantity.getText().trim().isEmpty()) {
+
+            javax.swing.JOptionPane.showMessageDialog(this, "All fields are required.", "Validation Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // 2. Validate: Parse numbers
+            int id = Integer.parseInt(txtId.getText().trim());
+            String brand = txtBrand.getText().trim();
+            String model = txtModel.getText().trim();
+            int year = Integer.parseInt(txtYear.getText().trim());
+            double price = Double.parseDouble(txtPrice.getText().trim());
+            int quantity = Integer.parseInt(txtQuantity.getText().trim());
+
+            // 3. Validate: Check for positive values
+            if (id < 0 || price < 0 || quantity < 0 || year < 1886) {
+                javax.swing.JOptionPane.showMessageDialog(this, "ID, Price, Quantity, and Year must be valid positive numbers.", "Input Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // 4. Create Object and Call Controller
+            controller.CarController carController = new controller.CarController();
+            model.Car newCar = new model.Car(id, brand, model, year, price, quantity);
+
+            // Capture the boolean result (True = Added, False = Duplicate ID)
+            boolean isAdded = carController.registerCar(newCar);
+
+            if (isAdded) {
+                // SUCCESS
+                javax.swing.JOptionPane.showMessageDialog(this, "Car Added Successfully.");
+
+                // Clear fields
+                txtId.setText("");
+                txtBrand.setText("");
+                txtModel.setText("");
+                txtYear.setText("");
+                txtPrice.setText("");
+                txtQuantity.setText("");
+
+                // Refresh the table immediately
+                loadTableData();
+
+            } else {
+                // FAILURE (Duplicate ID)
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Car ID " + id + " already exists! Please use a unique ID.",
+                        "Duplicate Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            // Catches any non-numeric input for ID, Year, Price, Quantity
+            javax.swing.JOptionPane.showMessageDialog(this, "ID, Year, Price, and Quantity must be numeric values.", "Format Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        loadTableData();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtId1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtId1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtId1ActionPerformed
+
+    private void txtModel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModel1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtModel1ActionPerformed
+
+    private void txtPrice1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrice1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrice1ActionPerformed
+
+    private void txtQuantity1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantity1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantity1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        // 1. ID is required to find the car
+        if (txtId1.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter the Car ID to update.", "Missing ID", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(txtId1.getText().trim());
+
+            // 2. Fetch the existing car data
+            // (Make sure you initialized 'controller' at the top of your class)
+            model.Car existingCar = controller.getCarById(id);
+
+            if (existingCar == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Car ID not found.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // 3. Determine New Values (Logic: If field is empty, keep old value)
+            // Model
+            String newModel;
+            if (txtModel1.getText().trim().isEmpty()) {
+                newModel = existingCar.getModel(); // Keep old
+            } else {
+                newModel = txtModel1.getText().trim(); // Use new
+            }
+
+            // Price
+            double newPrice;
+            if (txtPrice1.getText().trim().isEmpty()) {
+                newPrice = existingCar.getPrice(); // Keep old
+            } else {
+                newPrice = Double.parseDouble(txtPrice1.getText().trim()); // Use new
+            }
+
+            // Quantity
+            int newQuantity;
+            if (txtQuantity1.getText().trim().isEmpty()) {
+                newQuantity = existingCar.getStockQuantity(); // Keep old
+            } else {
+                newQuantity = Integer.parseInt(txtQuantity1.getText().trim()); // Use new
+            }
+
+            // 4. CHECK: Did anything actually change?
+            if (newModel.equals(existingCar.getModel())
+                    && newPrice == existingCar.getPrice()
+                    && newQuantity == existingCar.getStockQuantity()) {
+
+                javax.swing.JOptionPane.showMessageDialog(this, "No changes were made.", "Update Info", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                return; // Stop here
+            }
+
+            // 5. Validate Negatives
+            if (newPrice < 0 || newQuantity < 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Price and Quantity cannot be negative.", "Input Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // 6. Perform the Update
+            controller.updateCar(id, newModel, newPrice, newQuantity);
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Car details updated successfully!");
+
+            // Refresh and Clear
+            loadTableData();
+            txtId1.setText("");
+            txtModel1.setText("");
+            txtPrice1.setText("");
+            txtQuantity1.setText("");
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "ID, Price, and Quantity must be valid numbers.", "Format Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txtDeleteIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeleteIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDeleteIdActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        // 1. Validation
+        if (txtDeleteId.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter the Car ID to delete.", "Missing ID", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // 2. Parse ID
+            int id = Integer.parseInt(txtDeleteId.getText().trim());
+
+            // 3. Call Controller directly (No Confirmation)
+            controller.CarController carController = new controller.CarController();
+            boolean deleted = carController.deleteCar(id);
+
+            if (deleted) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Car Record Deleted Successfully.");
+                loadTableData(); // Refresh Table
+                txtDeleteId.setText(""); // Clear field
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Car ID not found.", "Delete Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Car ID must be a valid number.", "Format Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +728,53 @@ public class DashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable readTable;
+    private javax.swing.JTextField txtBrand;
+    private javax.swing.JTextField txtDeleteId;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtId1;
+    private javax.swing.JTextField txtModel;
+    private javax.swing.JTextField txtModel1;
+    private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtPrice1;
+    private javax.swing.JTextField txtQuantity;
+    private javax.swing.JTextField txtQuantity1;
+    private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
 }

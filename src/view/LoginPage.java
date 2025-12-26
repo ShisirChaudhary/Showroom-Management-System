@@ -9,7 +9,7 @@ package view;
  * @author Dell
  */
 public class LoginPage extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginPage.class.getName());
 
     /**
@@ -28,22 +28,123 @@ public class LoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(600, 400));
+        setMaximumSize(new java.awt.Dimension(625, 389));
+
+        jPanel1.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel1.setText("BMW");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(260, 20, 90, 48);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("PASSWORD :");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(200, 230, 90, 17);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("USERNAME :");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(200, 150, 90, 17);
+        jPanel1.add(jTextField1);
+        jTextField1.setBounds(200, 250, 200, 30);
+        jPanel1.add(jTextField2);
+        jTextField2.setBounds(200, 170, 200, 30);
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("START ENGINE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(230, 310, 140, 40);
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        jLabel4.setText("LOGIN PAGE");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(200, 70, 208, 48);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        // 1. Capture Data
+        // Note: Based on your layout coordinates, jTextField2 is the Username field
+        String username = jTextField2.getText().trim();
+        // Note: Based on your layout coordinates, jTextField1 is the Password field
+        String password = jTextField1.getText().trim();
+
+        // 2. Validation (Check if empty)
+        if (username.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Username cannot be empty!",
+                    "Validation Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Stop the code here
+        }
+
+        if (password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Password cannot be empty!",
+                    "Validation Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Stop the code here
+        }
+
+        // 3. Authentication (Check Credentials)
+        if (username.equals("sisir") && password.equals("sisir")) {
+
+            // Success
+            javax.swing.JOptionPane.showMessageDialog(this, "Engine Started! Welcome back.");
+
+            DashboardFrame dashboard = new DashboardFrame();
+            dashboard.setVisible(true);
+            this.dispose();
+
+            // Open the Main Dashboard
+            // ensure you create the Dashboard class first, then uncomment the line below:
+            // new Dashboard().setVisible(true); 
+        } else {
+            // Failure
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Invalid Username or Password.",
+                    "Login Failed",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -71,5 +172,15 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
