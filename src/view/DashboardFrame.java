@@ -260,7 +260,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price(Low To High)", "Price(High To Low)" }));
         jPanel3.add(cmbSort);
-        cmbSort.setBounds(20, 10, 133, 22);
+        cmbSort.setBounds(20, 10, 135, 22);
 
         jButton8.setText("Search");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -742,7 +742,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jTabbedPane1.addTab("  ", jPanel14);
+        jTabbedPane1.addTab("Confirm Sale", jPanel14);
 
         jPanel17.setBackground(new java.awt.Color(204, 204, 204));
         jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102), 5));

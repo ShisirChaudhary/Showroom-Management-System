@@ -1071,8 +1071,8 @@
             <Container class="javax.swing.JPanel" name="jPanel14">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="  ">
-                    <Property name="tabTitle" type="java.lang.String" value="  "/>
+                  <JTabbedPaneConstraints tabName="Confirm Sale">
+                    <Property name="tabTitle" type="java.lang.String" value="Confirm Sale"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
