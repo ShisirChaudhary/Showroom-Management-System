@@ -11,6 +11,7 @@ package view;
 public class DashboardFrame extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardFrame.class.getName());
+    private java.util.ArrayList<model.Car> currentCart = new java.util.ArrayList<>();
 
     /**
      * Creates new form DashboardFrame
@@ -18,6 +19,49 @@ public class DashboardFrame extends javax.swing.JFrame {
     public DashboardFrame() {
         initComponents();
         loadTableData();
+    }
+    // 1. Updates the "Shopping Cart" table on the left
+
+    public void refreshCartTable() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblCart.getModel();
+        model.setRowCount(0); // Clear rows
+
+        for (model.Car car : currentCart) {
+            model.addRow(new Object[]{car.getCarId(), car.getBrand(), car.getModel(), car.getPrice()});
+        }
+    }
+
+// 2. Updates the "Pending Orders" table (Reads from Manual Queue)
+    public void refreshPendingTable() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblPending.getModel();
+        model.setRowCount(0);
+
+        // This uses the getItems() helper we added in Step 1
+        model.Sale[] queueItems = controller.getPendingQueue().getItems();
+
+        for (model.Sale sale : queueItems) {
+            if (sale != null) {
+                model.addRow(new Object[]{"Pending", sale.getCustomerName(), sale.getTotalAmount()});
+            }
+        }
+    }
+
+// 3. Updates the "Sales History" table (Reads from Manual Stack)
+    public void refreshHistoryTable() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblHistory.getModel();
+        model.setRowCount(0);
+
+        // This uses the getItems() helper we added in Step 1
+        model.Sale[] stackItems = controller.getSalesHistory().getItems();
+
+        // Loop backwards to show newest (top of stack) first? 
+        // Or just loop normal array order. 
+        for (int i = stackItems.length - 1; i >= 0; i--) {
+            model.Sale sale = stackItems[i];
+            if (sale != null) {
+                model.addRow(new Object[]{"Confirmed", sale.getCustomerName(), sale.getTotalAmount()});
+            }
+        }
     }
     controller.CarController controller = new controller.CarController();
 
@@ -53,6 +97,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,6 +107,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         readTable = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        cmbSort = new javax.swing.JComboBox<>();
+        jButton8 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -100,8 +147,45 @@ public class DashboardFrame extends javax.swing.JFrame {
         txtDeleteId = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txtCustomerName = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        txtCustomerPhone = new javax.swing.JTextField();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblCart = new javax.swing.JTable();
+        jLabel19 = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblPending = new javax.swing.JTable();
+        jLabel24 = new javax.swing.JLabel();
+        jButton13 = new javax.swing.JButton();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jButton12 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblHistory = new javax.swing.JTable();
+        jLabel25 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -165,9 +249,27 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel3.add(jTextField1);
         jTextField1.setBounds(530, 10, 220, 22);
 
-        jButton3.setText("Search");
+        jButton3.setText("Sort");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton3);
-        jButton3.setBounds(760, 10, 72, 23);
+        jButton3.setBounds(170, 10, 72, 23);
+
+        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price(Low To High)", "Price(High To Low)" }));
+        jPanel3.add(cmbSort);
+        cmbSort.setBounds(20, 10, 133, 22);
+
+        jButton8.setText("Search");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton8);
+        jButton8.setBounds(760, 10, 72, 23);
 
         jTabbedPane1.addTab("Main Dashboard", jPanel3);
 
@@ -454,6 +556,255 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Delete Model", jPanel6);
 
+        jPanel13.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102), 5));
+        jPanel13.setLayout(null);
+
+        jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel17.setText("CART");
+        jPanel13.add(jLabel17);
+        jLabel17.setBounds(30, 110, 280, 32);
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel18.setText("Name:");
+        jPanel13.add(jLabel18);
+        jLabel18.setBounds(40, 60, 120, 20);
+
+        txtCustomerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCustomerNameActionPerformed(evt);
+            }
+        });
+        jPanel13.add(txtCustomerName);
+        txtCustomerName.setBounds(160, 60, 200, 22);
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel22.setText("Phone :");
+        jPanel13.add(jLabel22);
+        jLabel22.setBounds(440, 60, 120, 20);
+
+        txtCustomerPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCustomerPhoneActionPerformed(evt);
+            }
+        });
+        jPanel13.add(txtCustomerPhone);
+        txtCustomerPhone.setBounds(560, 60, 200, 22);
+
+        jButton9.setBackground(new java.awt.Color(0, 0, 102));
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setText("Make Sale");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jButton9);
+        jButton9.setBounds(650, 300, 120, 30);
+
+        jButton10.setBackground(new java.awt.Color(0, 0, 102));
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Add Item");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jButton10);
+        jButton10.setBounds(640, 100, 120, 30);
+
+        tblCart.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "CarID", "Brand", "Model", "Price"
+            }
+        ));
+        jScrollPane2.setViewportView(tblCart);
+        if (tblCart.getColumnModel().getColumnCount() > 0) {
+            tblCart.getColumnModel().getColumn(2).setHeaderValue("Phone");
+            tblCart.getColumnModel().getColumn(3).setHeaderValue("Status");
+        }
+
+        jPanel13.add(jScrollPane2);
+        jScrollPane2.setBounds(20, 150, 790, 140);
+
+        jLabel19.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel19.setText("ADD CUSTOMER DETAIL");
+        jPanel13.add(jLabel19);
+        jLabel19.setBounds(290, 10, 280, 32);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jTabbedPane1.addTab("Make Sale", jPanel12);
+
+        jPanel15.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102), 5));
+        jPanel15.setLayout(null);
+
+        jLabel20.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel20.setText("CART");
+        jPanel15.add(jLabel20);
+        jLabel20.setBounds(30, 50, 280, 32);
+
+        jButton11.setBackground(new java.awt.Color(0, 0, 102));
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("Confirm Sale");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel15.add(jButton11);
+        jButton11.setBounds(680, 300, 120, 30);
+
+        tblPending.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Queue #", "Customer Name", "Total Amount"
+            }
+        ));
+        jScrollPane3.setViewportView(tblPending);
+
+        jPanel15.add(jScrollPane3);
+        jScrollPane3.setBounds(20, 90, 790, 200);
+
+        jLabel24.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel24.setText("Confim Sale");
+        jPanel15.add(jLabel24);
+        jLabel24.setBounds(350, 10, 140, 32);
+
+        jButton13.setBackground(new java.awt.Color(0, 0, 102));
+        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(255, 255, 255));
+        jButton13.setText("Cancle Sale");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel15.add(jButton13);
+        jButton13.setBounds(550, 300, 120, 30);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jTabbedPane1.addTab("  ", jPanel14);
+
+        jPanel17.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102), 5));
+        jPanel17.setLayout(null);
+
+        jButton12.setBackground(new java.awt.Color(0, 0, 102));
+        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
+        jButton12.setText("Undo Last Sale");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jButton12);
+        jButton12.setBounds(630, 50, 160, 30);
+
+        tblHistory.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "SaleID", "Customer Name", "Total Paid"
+            }
+        ));
+        jScrollPane4.setViewportView(tblHistory);
+
+        jPanel17.add(jScrollPane4);
+        jScrollPane4.setBounds(20, 90, 790, 240);
+
+        jLabel25.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel25.setText("Sale History");
+        jPanel17.add(jLabel25);
+        jLabel25.setBounds(360, 10, 140, 32);
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel16Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel16Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jTabbedPane1.addTab("Sale History", jPanel16);
+
         jPanel1.add(jTabbedPane1);
         jTabbedPane1.setBounds(30, 130, 840, 400);
 
@@ -564,6 +915,9 @@ public class DashboardFrame extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         loadTableData();
+        refreshCartTable();
+        refreshPendingTable();
+        refreshHistoryTable();
     }//GEN-LAST:event_formWindowActivated
 
     private void txtId1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtId1ActionPerformed
@@ -702,6 +1056,202 @@ public class DashboardFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void txtCustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCustomerNameActionPerformed
+
+    private void txtCustomerPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomerPhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCustomerPhoneActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+
+        // 1. Validation
+        String customerName = txtCustomerName.getText().trim(); // Make sure your TextField is named this!
+        String phone = txtCustomerPhone.getText().trim();       // Make sure your TextField is named this!
+
+        if (customerName.isEmpty() || phone.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter customer details.");
+            return;
+        }
+
+        if (currentCart.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Cart is empty!");
+            return;
+        }
+
+        // 2. Create Sale Object
+        // (Ensure your Sale model has a constructor that accepts name, phone, and ArrayList<Car>)
+        model.Sale sale = new model.Sale(customerName, phone, currentCart);
+
+        // 3. Add to Queue (FIFO Logic from Slide 44)
+        controller.addSaleToQueue(sale);
+
+        // 4. Success Message & Cleanup
+        javax.swing.JOptionPane.showMessageDialog(this, "Order Queued Successfully!");
+
+        currentCart.clear();      // Empty the local cart
+        refreshCartTable();       // Clear the cart table UI
+        txtCustomerName.setText("");
+        txtCustomerPhone.setText("");
+
+        // 5. Update the Admin View
+        refreshPendingTable();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // 1. Open the Dialog
+        // Pass 'this' as parent, 'true' for modal, and pass the controller & cart
+        view.AddToCart dialog = new view.AddToCart(this, true, controller, currentCart);
+
+        // 2. Center and Show
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+
+        // 3. Update the Cart Table if something was added
+        if (dialog.isItemAdded()) {
+            refreshCartTable();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
+        // 1. Call the method you created in CarController
+        // This handles the Dequeue -> Stock Update -> Stack Push logic
+        model.Sale confirmedSale = controller.confirmNextSale();
+
+        // 2. Check if it was successful
+        if (confirmedSale != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Payment Confirmed for " + confirmedSale.getCustomerName());
+
+            // 3. Update the GUI Tables
+            refreshPendingTable(); // Updates the Queue table (Right Top)
+            refreshHistoryTable(); // Updates the History table (Right Bottom)
+
+            // 4. CRITICAL: Reload the Main Inventory Table to see the stock go down!
+            loadTableData();
+
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "No pending orders to confirm.");
+        }
+
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        model.Sale undoneSale = controller.undoLastSale();
+
+        if (undoneSale != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Undo Successful. Stock restored for " + undoneSale.getCustomerName());
+
+            // 2. Refresh Admin Tables
+            refreshHistoryTable(); // Remove from History table
+
+            // 3. CRITICAL: Refresh Main Inventory to see stock go UP
+            loadTableData();
+
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Nothing to undo!");
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+
+        // 1. Check if there is anything to cancel
+        if (controller.getPendingQueue().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No pending orders to cancel.");
+            return;
+        }
+
+        // 2. Peek at who we are cancelling (User Experience improvement)
+        // We use peek() so we can show the name BEFORE we delete it
+        model.Sale nextSale = controller.getPendingQueue().peek();
+        String customerName = (nextSale != null) ? nextSale.getCustomerName() : "Unknown";
+
+        // 3. Ask for Confirmation
+        int response = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to REJECT and CANCEL the order for " + customerName + "?\nThis action cannot be undone.",
+                "Confirm Cancellation",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+
+        // 4. Perform the Cancellation (Dequeue)
+        if (response == javax.swing.JOptionPane.YES_OPTION) {
+            model.Sale cancelled = controller.cancelNextSale();
+
+            if (cancelled != null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Order Cancelled Successfully.");
+                refreshPendingTable(); // Updates the UI to show the item is gone
+            }
+        }
+
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        // 1. Get User Selection
+        String selection = (String) cmbSort.getSelectedItem(); // e.g., "Price (Low to High)"
+
+        if (selection == null) {
+            return;
+        }
+
+        // 2. Determine Ascending vs Descending
+        // If selection is "Low to High", isAscending = true.
+        // If selection is "High to Low", isAscending = false.
+        boolean isAscending = selection.toLowerCase().contains("low to high");
+
+        // 3. Call Bubble Sort
+        controller.bubbleSort("price", isAscending);
+
+        // 4. Refresh Table
+        loadTableData();
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Sorted " + selection);
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+
+        // 1. Get Search Text
+        String query = jTextField1.getText().trim(); // Check your TextField variable name
+
+        // 2. Handle Empty Query
+        if (query.isEmpty()) {
+            // Restore default view (e.g., sort by Price Low to High)
+            controller.bubbleSort("price", true);
+            loadTableData();
+            return;
+        }
+
+        // 3. Perform Smart Binary Search
+        // This sorts by Brand -> Searches -> Sorts by Model -> Searches -> Merges
+        java.util.ArrayList<model.Car> results = controller.searchByBrandAndModel(query);
+
+        // 4. Update Table with Results
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) readTable.getModel();
+        model.setRowCount(0); // Clear table
+
+        for (model.Car car : results) {
+            Object[] row = {
+                car.getCarId(),
+                car.getBrand(),
+                car.getModel(),
+                car.getYear(),
+                car.getPrice(),
+                car.getStockQuantity()
+            };
+            model.addRow(row);
+        }
+
+        // 5. Feedback
+        if (results.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No matches found for: " + query);
+        }
+
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -728,13 +1278,20 @@ public class DashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbSort;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -743,7 +1300,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -753,6 +1317,13 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -762,10 +1333,18 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable readTable;
+    private javax.swing.JTable tblCart;
+    private javax.swing.JTable tblHistory;
+    private javax.swing.JTable tblPending;
     private javax.swing.JTextField txtBrand;
+    private javax.swing.JTextField txtCustomerName;
+    private javax.swing.JTextField txtCustomerPhone;
     private javax.swing.JTextField txtDeleteId;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtId1;
