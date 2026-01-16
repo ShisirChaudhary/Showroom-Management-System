@@ -54,8 +54,6 @@ public class DashboardFrame extends javax.swing.JFrame {
         // This uses the getItems() helper we added in Step 1
         model.Sale[] stackItems = controller.getSalesHistory().getItems();
 
-        // Loop backwards to show newest (top of stack) first? 
-        // Or just loop normal array order. 
         for (int i = stackItems.length - 1; i >= 0; i--) {
             model.Sale sale = stackItems[i];
             if (sale != null) {
@@ -628,10 +626,6 @@ public class DashboardFrame extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(tblCart);
-        if (tblCart.getColumnModel().getColumnCount() > 0) {
-            tblCart.getColumnModel().getColumn(2).setHeaderValue("Phone");
-            tblCart.getColumnModel().getColumn(3).setHeaderValue("Status");
-        }
 
         jPanel13.add(jScrollPane2);
         jScrollPane2.setBounds(20, 150, 790, 140);

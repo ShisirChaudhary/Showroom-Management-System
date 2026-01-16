@@ -6,7 +6,7 @@ package controller;
 
 /**
  *
- * @author Tejas Shahi
+ * @author:Dell
  */
 import model.Sale;
 
@@ -44,9 +44,9 @@ public class SalesQueue {
             System.out.println("Queue is empty");
             return null;
         } else {
-            element = items[front]; // Access data at front [cite: 1484]
+            element = items[front]; // Access data at front.
             if (front >= rear) {
-                // Queue has only one element, so we reset queue after deleting it [cite: 1484]
+                // Queue has only one element, so we reset queue after deleting it.
                 front = -1;
                 rear = -1;
             } else {
@@ -79,7 +79,7 @@ public class SalesQueue {
 
         // We need to loop from front to rear
         int count = 0;
-        // Calculate size based on front/rear logic (simple version for your coursework)
+        // Calculate size based on front/rear logic.
         // If front <= rear
         int size = rear - front + 1;
         model.Sale[] currentItems = new model.Sale[size];

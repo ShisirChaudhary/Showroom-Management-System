@@ -6,7 +6,7 @@ package controller;
 
 /**
  *
- * @author Tejas Shahi
+ * @author Dell
  */
 import model.Sale;
 
@@ -19,26 +19,26 @@ public class SalesStack {
     public SalesStack(int size) {
         arr = new Sale[size];
         capacity = size;
-        top = -1; // Indicates empty stack [cite: 587]
+        top = -1; // Indicates empty stack 
     }
 
     // Push Operation: Add sale to top
     public void push(Sale x) {
         if (isFull()) {
-            System.out.println("Stack OverFlow"); // [cite: 619]
+            System.out.println("Stack OverFlow"); 
             // In GUI, you might want to show a popup message here
             return;
         }
-        arr[++top] = x; // Increment top then add element [cite: 647, 648]
+        arr[++top] = x; // Increment top then add element
     }
 
     // Pop Operation: Remove sale from top
     public Sale pop() {
         if (isEmpty()) {
-            System.out.println("STACK EMPTY"); // [cite: 620]
+            System.out.println("STACK EMPTY"); 
             return null;
         }
-        return arr[top--]; // Return element then decrement top [cite: 681, 682]
+        return arr[top--]; // Return element then decrement top 
     }
 
     // Check if empty
@@ -48,10 +48,10 @@ public class SalesStack {
 
     // Check if full
     public boolean isFull() {
-        return top == capacity - 1; // [cite: 802]
+        return top == capacity - 1; 
     }
     
-    // Peek: Look at the top without removing (Useful for GUI display)
+    // Peek: Look at the top without removing
     public Sale peek() {
         if (!isEmpty()) {
             return arr[top];
@@ -60,7 +60,6 @@ public class SalesStack {
     }
     public model.Sale[] getItems() {
     // Return a copy or the actual array up to 'top'
-    // This is needed because your 'arr' is private
     model.Sale[] currentItems = new model.Sale[top + 1];
     for (int i = 0; i <= top; i++) {
         currentItems[i] = arr[i];

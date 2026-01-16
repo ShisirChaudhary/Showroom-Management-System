@@ -6,7 +6,7 @@ package model;
 import java.util.ArrayList;
 /**
  *
- * @author Tejas Shahi
+ * @author Dell
  */
 public class Sale {
     private String customerName;

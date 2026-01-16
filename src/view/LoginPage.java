@@ -134,7 +134,7 @@ public class LoginPage extends javax.swing.JFrame {
             this.dispose();
 
             // Open the Main Dashboard
-            // ensure you create the Dashboard class first, then uncomment the line below:
+            // ensure you create the Dashboard class first.
             // new Dashboard().setVisible(true); 
         } else {
             // Failure
@@ -143,7 +143,7 @@ public class LoginPage extends javax.swing.JFrame {
                     "Login Failed",
                     javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        // TODO add your handling code here:
+        //  add handling code:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

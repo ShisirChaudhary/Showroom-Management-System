@@ -9,8 +9,8 @@ public class CarController {
     // 1. INVENTORY (ArrayList - Existing Requirement)
     private static ArrayList<Car> inventory = new ArrayList<>();
 
-    // 2. SALES DATA STRUCTURES (Manual Implementation - Coursework Requirement)
-    // defined as static so they persist across different UI windows
+    // 2. SALES DATA STRUCTURES 
+    // defined as static 
     private static SalesQueue pendingSales = new SalesQueue(50); // Capacity of 50 pending sales
     private static SalesStack salesHistory = new SalesStack(100); // Capacity of 100 history items
 
@@ -25,9 +25,6 @@ public class CarController {
         }
     }
 
-    // ==========================================
-    //       PART A: INVENTORY MANAGEMENT
-    // ==========================================
     public ArrayList<Car> getAllCars() {
         return inventory;
     }
@@ -71,9 +68,6 @@ public class CarController {
         return false;
     }
 
-    // ==========================================
-    //       PART B: SALES MANAGEMENT (NEW)
-    // ==========================================
     /**
      * Adds a sale to the PENDING QUEUE (FIFO). This uses your manual
      * Array-based Queue.
@@ -89,9 +83,6 @@ public class CarController {
         }
     }
 
-    // ==========================================
-    //       PART C: GETTERS FOR GUI DISPLAY
-    // ==========================================
     // Helper to get the queue for display purposes (if you want to show pending list)
     public SalesQueue getPendingQueue() {
         return pendingSales;
@@ -148,7 +139,6 @@ public class CarController {
 
             // 2. RESTORE STOCK (Increase Quantity)
             for (model.Car soldCar : undoneSale.getPurchasedItems()) {
-                // Find the master car object in the inventory
                 model.Car inventoryCar = getCarById(soldCar.getCarId());
 
                 if (inventoryCar != null) {
@@ -167,10 +157,7 @@ public class CarController {
     //       PART D: SEARCH & SORT ALGORITHMS
     // ==========================================
 
-    /**
-     * SEARCH: Linear Search by Model Name (Slide 8-9) Finds all cars that match
-     * the search query.
-     */
+
     public java.util.ArrayList<Car> searchByModel(String query) {
         java.util.ArrayList<Car> results = new java.util.ArrayList<>();
 
@@ -187,14 +174,6 @@ public class CarController {
     //       PART D: ALGORITHMS (Bubble Sort & Binary Search)
     // ==========================================
 
-    /**
-     * ALGORITHM: Bubble Sort Reference: Week 7 Slides (Sorting Types) Time
-     * Complexity: O(n^2)
-     *
-     * @param criteria "price", "brand", or "model"
-     * @param isAscending true for Low-to-High (A-Z), false for High-to-Low
-     * (Z-A)
-     */
     public void bubbleSort(String criteria, boolean isAscending) {
         int n = inventory.size();
 
@@ -233,11 +212,7 @@ public class CarController {
         }
     }
 
-    /**
-     * ALGORITHM: Binary Search Reference: Week 8 Slides [cite: 1920-1922] Time
-     * Complexity: O(log n) * NOTE: The list MUST be sorted by the criteria
-     * before calling this method.
-     */
+
     public java.util.ArrayList<Car> binarySearch(String searchValue, String criteria) {
         java.util.ArrayList<Car> foundItems = new java.util.ArrayList<>();
 
@@ -296,10 +271,6 @@ public class CarController {
         return foundItems; // Return empty list if not found
     }
 
-    /**
-     * SEARCH WORKFLOW: "Search by both Brand and Model" This orchestrates the
-     * Sort -> Search requirement.
-     */
     public java.util.ArrayList<Car> searchByBrandAndModel(String query) {
         java.util.ArrayList<Car> finalResults = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> addedIds = new java.util.ArrayList<>(); // To track duplicates

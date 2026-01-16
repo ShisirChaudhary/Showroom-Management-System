@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Tejas Shahi
+ * @author Dell
  */
 public class AddToCart extends javax.swing.JDialog {
 
@@ -21,9 +21,6 @@ public class AddToCart extends javax.swing.JDialog {
     private boolean itemAdded = false;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddToCart.class.getName());
 
-    /**
-     * Creates new form AddToCart
-     */
     // Updated to accept Controller and CartList
     public AddToCart(java.awt.Frame parent, boolean modal, CarController controller, ArrayList<Car> cartList) {
         super(parent, modal);
