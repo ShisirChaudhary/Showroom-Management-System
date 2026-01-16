@@ -5,6 +5,12 @@
         <group>
             <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/view/DashboardFrame.java</file>
             <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/view/AddToCart.java</file>
+            <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/controller/CarController.java</file>
+            <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/controller/SalesQueue.java</file>
+            <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/controller/SalesStack.java</file>
+            <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/model/Car.java</file>
+            <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/model/Sale.java</file>
+            <file>file:/C:/Users/Dell/Desktop/dsa%20-%20coursework/Showroom-Management-System/src/view/LoginPage.java</file>
         </group>
     </open-files>
 </project-private>
